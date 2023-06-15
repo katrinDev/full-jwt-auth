@@ -37,6 +37,17 @@ class UserService {
       throw new Error(e);
     }
   }
+
+  async activate(activationLink) {
+    const user = await UserModel.findOne({ activationLink });
+
+    if (!user) {
+      throw new Error("Incorrect activation link!");
+    }
+
+    user.isActivated = true;
+    await user.save();
+  }
 }
 
 module.exports = new UserService();
