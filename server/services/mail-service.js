@@ -18,7 +18,7 @@ class MailService {
       subject: "Account activation for JWT Auth Practice",
       html: `
         <div>
-            <h1>Click the link to activate your account</h1>
+            <h1>U can activate your account below</h1>
             <h3><a href="${link}">Verification Link: ${link}</a></h3>
         </div>
       `,

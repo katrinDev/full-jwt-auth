@@ -4,7 +4,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const { default: mongoose } = require("mongoose");
 const router = require("./router/router.js");
-const errorMiddleware = require("./middlewares/error-middleware.js");
+const errorMiddleware = require("./middleware/error-middleware.js");
 const PORT = process.env.PORT || 5000;
 const app = express();
 
