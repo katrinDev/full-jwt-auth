@@ -71,6 +71,26 @@ class UserService {
     const token = await tokenService.removeToken(refreshToken);
     return token;
   }
+
+  async refresh(refreshToken) {
+    if (!refreshToken) {
+      throw ApiError.UnauthorizedError();
+    }
+
+    const payload = tokenService.validateRefreshToken(refreshToken); //there are id, email and isActivated inside the payload
+    console.log(payload);
+    const tokenFromDb = await tokenService.findToken(refreshToken);
+    if (!payload || !tokenFromDb) {
+      throw ApiError.UnauthorizedError();
+    }
+
+    const user = await UserModel.findById(payload.id); //in 30 days some user info could change
+    const userDto = new UserDto(user);
+    const tokens = tokenService.generateTokens({ ...userDto });
+    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+    return { ...tokens, user: userDto };
+  }
 }
 
 module.exports = new UserService();
