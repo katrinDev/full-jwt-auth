@@ -33,10 +33,6 @@ const App: FC = () => {
       <>
         <h1>Authorization</h1>
         <LoginForm />
-
-        <div>
-          <button onClick={getUsers}>Get all users</button>
-        </div>
       </>
     );
   } else {
@@ -68,4 +64,4 @@ const App: FC = () => {
 };
 
 export default observer(App);
-//before we wrap a component into observer function, MobX can't track any data changes
+// MobX can't track any data changes in a component without an "observer" wrapper

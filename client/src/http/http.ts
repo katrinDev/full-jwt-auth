@@ -10,6 +10,7 @@ const $api = axios.create({
 });
 
 $api.interceptors.request.use((config) => {
+  //all info about a request is located in config
   config.headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
   return config;
 });
@@ -18,7 +19,6 @@ $api.interceptors.response.use(
   (config) => config,
   async (error) => {
     const originalRequest = error.config; //error.config contains all data for request
-    console.log(originalRequest);
 
     if (
       error.response.status == 401 &&
